@@ -9,6 +9,10 @@ public class RepositoryLocator{
 	static HibernateConductoresRepository conductoresRepository;
 	static HibernateViajesRepository viajesRepository;
 	
+	public static RepositoryLocator getInstance(){
+		
+		return new RepositoryLocator();
+	}
 	public static HibernateCalificacionesRepository getCalificacionesRepository(){
 		
 		return calificacionesRepository;
@@ -32,4 +36,16 @@ public class RepositoryLocator{
 	   return viajesRepository;
 	
     }
+    public static void setCalificacionesRepository(HibernateCalificacionesRepository calificacionesRepository) {
+		RepositoryLocator.calificacionesRepository = calificacionesRepository;
+	}
+	public static void setPasajerosRepository(HibernatePasajerosRepository pasajerosRepository) {
+		RepositoryLocator.pasajerosRepository = pasajerosRepository;
+	}
+	public static void setConductoresRepository(HibernateConductoresRepository conductoresRepository) {
+		RepositoryLocator.conductoresRepository = conductoresRepository;
+	}
+	public static void setViajesRepository(HibernateViajesRepository viajesRepository) {
+		RepositoryLocator.viajesRepository = viajesRepository;
+	}
 }
