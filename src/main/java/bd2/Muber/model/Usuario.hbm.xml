@@ -7,7 +7,7 @@
 
 		<id name="id_usuario">
             <column name="id_usuario" />
-            <generator class="hilo" />
+            <generator class="increment" />
         </id>
         
         <property name="nombre">

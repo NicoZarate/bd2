@@ -40,7 +40,14 @@ import bd2.Muber.services.*;
 @EnableWebMvc
 public class MuberRestController {
 
-
+	public Session getSession() {
+		Configuration cfg = new Configuration();
+		cfg.configure("hibernate.cfg.xml");
+		SessionFactory factory = cfg.buildSessionFactory();
+		Session session = factory.openSession();
+		return session;
+	        
+	}
 	
 	//listar todos los pasajeros
 	@RequestMapping(value = "/pasajeros", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
@@ -63,8 +70,9 @@ public class MuberRestController {
 	        }*/
 		//
 		//ServiceLocator.getPasajerosService().getPasajeros();
-		
-		
+		//nos falta declarar los beans de cada clase
+		//Session session = this.getSession();
+		//Muber muber = (Muber) session.get(Muber.class, new Long(1));
 		Map<String, String> aMap = new HashMap<String, String>();
 		aMap.put("", "");
 		return new Gson().toJson(aMap);
