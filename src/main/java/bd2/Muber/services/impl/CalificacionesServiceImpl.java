@@ -5,7 +5,7 @@ import java.util.List;
 import bd2.Muber.model.Calificacion;
 import bd2.Muber.repositories.impl.HibernateCalificacionesRepository;
 
-public class CalificacionesServiceImpl {
+public class CalificacionesServiceImpl extends BaseServiceImpl{
 
 HibernateCalificacionesRepository calificacionesRepository;
 	
