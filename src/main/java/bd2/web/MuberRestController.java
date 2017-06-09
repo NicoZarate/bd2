@@ -29,11 +29,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.google.gson.Gson;
 
-import antlr.collections.List;
+
 import bd2.Muber.model.*;
 import bd2.Muber.services.*;
-
-
+import bd2.Muber.dto.*;
+import java.util.List;
 @ControllerAdvice
 @RequestMapping("/services")
 @ResponseBody
@@ -52,31 +52,15 @@ public class MuberRestController {
 	//listar todos los pasajeros
 	@RequestMapping(value = "/pasajeros", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 	public String listarPasajeros() {
-		/*try{
-			Map<Long, String> aMap = new HashMap<Long, String>();
-			Session session = this.getSession();
-			//Muber muber1= new Muber();
-			//session.save(muber1);
-		//	Muber muber = (Muber) session.get(Muber.class, new Long(1));
-			Collection<Pasajero> pasajeros = muber.getPasajeros();
-			
-			for (Pasajero elem : pasajeros) {
-				aMap.put(elem.getId_usuario(), elem.getNombre());
-			}
-			return new Gson().toJson(aMap);
-		 } catch(NullPointerException e)
-	        {
-	            return "no hay pasajeros en la base de datos";
-	        }*/
-		//
-		//ServiceLocator.getPasajerosService().getPasajeros();
-		//nos falta declarar los beans de cada clase
-		//Session session = this.getSession();
-		//Muber muber = (Muber) session.get(Muber.class, new Long(1));
-		Map<String, String> aMap = new HashMap<String, String>();
-		aMap.put("", "");
+		
+		List<PasajeroDTO> pasajeros = ServiceLocator.getPasajerosService().getPasajeros();
+		Map<Long, String> aMap = new HashMap<Long, String>();
+        for (PasajeroDTO elem : pasajeros) {
+			aMap.put(elem.getId_usuario(), elem.getNombre());
+		}
+		
 		return new Gson().toJson(aMap);
-		//   PasajerosServiceBI.getPasajerosService()
+		
 	}
 	//listar todos los conductores
 		@RequestMapping(value = "/conductores", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")

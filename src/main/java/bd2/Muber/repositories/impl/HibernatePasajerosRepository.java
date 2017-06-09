@@ -1,5 +1,6 @@
 package bd2.Muber.repositories.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -16,8 +17,12 @@ public class HibernatePasajerosRepository extends BaseHibernateRepository implem
 		Session session = this.getSession();
 		Transaction t = session.beginTransaction();
 		List<Pasajero> pasajeros= session.createQuery("from Pasajero").list();
-		t.commit();
+		t.rollback();
 		endSession(session);
+		/*List<Pasajero> pasajeros= new ArrayList<Pasajero>();
+		Muber muber= new Muber();
+		Pasajero p= new Pasajero("robert", "1212", 123, muber);
+		pasajeros.add(p);*/
 		return pasajeros;
 	}
 	
