@@ -5,7 +5,7 @@ import java.util.List;
 import bd2.Muber.model.Conductor;
 import bd2.Muber.repositories.impl.HibernateConductoresRepository;
 
-public class ConductoresServiceImpl {
+public class ConductoresServiceImpl extends BaseServiceImpl{
 
 HibernateConductoresRepository conductoresRepository;
 	
