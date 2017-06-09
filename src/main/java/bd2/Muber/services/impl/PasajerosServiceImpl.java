@@ -2,14 +2,14 @@ package bd2.Muber.services.impl;
 
 import java.util.List;
 
-import bd2.Muber.model.Pasajero;
+import bd2.Muber.dto.PasajeroDTO;
 import bd2.Muber.repositories.impl.HibernatePasajerosRepository;
 
 public class PasajerosServiceImpl extends BaseServiceImpl{
 	HibernatePasajerosRepository pasajerosRepository;
 	
-	public List<Pasajero> getPasajeros()
+	public List<PasajeroDTO> getPasajeros()
 	{
-		return pasajerosRepository.getPasajeros();
+		return this.dtoFactory.crearPasajerosDTO(pasajerosRepository.getPasajeros());
 	}
 }
