@@ -28,4 +28,14 @@ public class DTOFactory{
 		
 		return viajesdto;
 	}
+
+	public List<ConductorDTO> crearConductoresDTO(List<Conductor> conductores) {
+		List <ConductorDTO> conductoresdto = new ArrayList<ConductorDTO>();
+		
+		for(Conductor c: conductores){
+			conductoresdto.add(new ConductorDTO(c));
+		}
+		
+		return conductoresdto;
+	}
 }
