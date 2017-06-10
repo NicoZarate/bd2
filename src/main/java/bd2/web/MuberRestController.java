@@ -151,7 +151,7 @@ public class MuberRestController {
 						@RequestParam("idPasajero") Long idPasajero) {
 						
 					   	return ServiceLocator.getPasajerosService().agregarPasajeroAViaje(idViaje,idPasajero);
-										
+					    //LOS STRING EN PRINCIO ESTA ESCRITOS EN LOS MODELOS AHI ES DONDE VALIDAMOS TODO				
 
 			    }
 		/*	
