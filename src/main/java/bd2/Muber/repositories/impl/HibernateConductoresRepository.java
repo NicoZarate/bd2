@@ -6,8 +6,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import bd2.Muber.interfaces.repositories.ConductoresRepositoryBI;
 import bd2.Muber.model.*;
-public class HibernateConductoresRepository extends BaseHibernateRepository{
+public class HibernateConductoresRepository extends BaseHibernateRepository implements ConductoresRepositoryBI{
 	
 	
 	//lista de conductores
@@ -21,10 +22,11 @@ public class HibernateConductoresRepository extends BaseHibernateRepository{
 	}
 	
 	//retorna conductor buscado por el id
+	
 	public Conductor buscarConductor(Long id){
 		Session session = this.getSession();
 		Transaction t = session.beginTransaction();
-		Query query =session.createQuery("from conductor WHERE id_usuario = :id");
+		Query query =session.createQuery("from Conductor WHERE id_usuario = :id");
 		query.setParameter("id", id);
 		Conductor conductor = (Conductor) query.uniqueResult();
 		t.commit();

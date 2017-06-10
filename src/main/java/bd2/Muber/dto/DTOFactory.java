@@ -38,4 +38,19 @@ public class DTOFactory{
 		
 		return conductoresdto;
 	}
+	
+	public ConductorDTO crearConductorDTO(Conductor c){
+		
+		return new ConductorDTO(c);
+	}
+	
+    public PasajeroDTO crearPasajeroDTO(Pasajero p){
+		
+		return new PasajeroDTO(p);
+	}
+	
+    public ViajeDTO crearViajeDTO(Viaje v){
+		
+		return new ViajeDTO(v);
+	}
 }

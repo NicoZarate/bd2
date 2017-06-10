@@ -1,48 +1,64 @@
 package bd2.Muber.services;
 
+import bd2.Muber.interfaces.services.*;
 import bd2.Muber.repositories.RepositoryLocator;
-//el service locator mantiene una referencia atodos los servicios existentes
-import bd2.Muber.services.impl.*;
+
+
 public class ServiceLocator{
 	
-	static PasajerosServiceImpl pasajerosService;
-	static ConductoresServiceImpl conductoresService;
-	static CalificacionesServiceImpl calificacionesService;
-	static ViajesServiceImpl viajesService;
+	static PasajerosServiceBI pasajerosService;
+	static ConductoresServiceBI conductoresService;
+	static CalificacionesServiceBI calificacionesService;
+	static ViajesServiceBI viajesService;
 	
 	
 	public static ServiceLocator getInstance(){
 		
 		return new ServiceLocator();
 	}
-	public static PasajerosServiceImpl getPasajerosService(){
+	
+	public static PasajerosServiceBI getPasajerosService() {
 		return pasajerosService;
 	}
-	
-	public static CalificacionesServiceImpl getCalificacionesService(){
+
+
+	public static void setPasajerosService(PasajerosServiceBI pasajerosService) {
+		ServiceLocator.pasajerosService = pasajerosService;
+	}
+
+
+	public static ConductoresServiceBI getConductoresService() {
+		return conductoresService;
+	}
+
+
+	public static void setConductoresService(ConductoresServiceBI conductoresService) {
+		ServiceLocator.conductoresService = conductoresService;
+	}
+
+
+	public static CalificacionesServiceBI getCalificacionesService() {
 		return calificacionesService;
 	}
-	
-	public static ViajesServiceImpl getViajesService(){
+
+
+	public static void setCalificacionesService(CalificacionesServiceBI calificacionesService) {
+		ServiceLocator.calificacionesService = calificacionesService;
+	}
+
+
+	public static ViajesServiceBI getViajesService() {
 		return viajesService;
 	}
+
+
+	public static void setViajesService(ViajesServiceBI viajesService) {
+		ServiceLocator.viajesService = viajesService;
+	}
+
+
 	
-	
-	  public static ConductoresServiceImpl getConductoresService() {
-			return conductoresService;
-		}
-		public static void setConductoresService(ConductoresServiceImpl conductoresService) {
-			ServiceLocator.conductoresService = conductoresService;
-		}
-		public static void setPasajerosService(PasajerosServiceImpl pasajerosService) {
-			ServiceLocator.pasajerosService = pasajerosService;
-		}
-		public static void setCalificacionesService(CalificacionesServiceImpl calificacionesService) {
-			ServiceLocator.calificacionesService = calificacionesService;
-		}
-		public static void setViajesService(ViajesServiceImpl viajesService) {
-			ServiceLocator.viajesService = viajesService;
-		}
+
 }
 
 

@@ -40,14 +40,6 @@ import java.util.List;
 @EnableWebMvc
 public class MuberRestController {
 
-	public Session getSession() {
-		Configuration cfg = new Configuration();
-		cfg.configure("hibernate.cfg.xml");
-		SessionFactory factory = cfg.buildSessionFactory();
-		Session session = factory.openSession();
-		return session;
-	        
-	}
 	
 	//listar todos los pasajeros
 	@RequestMapping(value = "/pasajeros", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
@@ -62,53 +54,52 @@ public class MuberRestController {
 		return new Gson().toJson(aMap);
 		
 	}
+	
 	//listar todos los conductores
 		@RequestMapping(value = "/conductores", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 		public String listarConductores() {
-		  return null;
+			List<ConductorDTO> conductores = ServiceLocator.getConductoresService().getConductores();
+			Map<Long, String> aMap = new HashMap<Long, String>();
+			for (ConductorDTO elem : conductores) {
+				aMap.put(elem.getId_usuario(), elem.getNombre());
+			}
+		  return new Gson().toJson(aMap);
 		}
 		
 		
 		//listar todos los datos del conductor
 		@RequestMapping(value = "/conductores/detalle/{id_conductor}", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 		public String infoConductor(@PathVariable("id_conductor") long id_conductor) {
-			/*try{ 
-			Session session = this.getSession();
-			Conductor c = (Conductor) session.get(Conductor.class, id_conductor);
- 			return new Gson().toJson(this.mostrarInformacion(c) );
+			//FaLTA VER QUE LISTE LOS VIAJES Y EL ProMEDIO
+			try{ 
+				ConductorDTO c = ServiceLocator.getConductoresService().buscarConductor(id_conductor);
+				return new Gson().toJson(this.mostrarInformacion(c) );
 			 } catch(NullPointerException e)
             {
                 return "no hay conductor con ese id";
             } 
-           */
-			return null;
 		}
 		
 		//listar todos los viajes abiertos
-	/*	@RequestMapping(value = "/viajes/abiertos", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
+		@RequestMapping(value = "/viajes/abiertos", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 		public String listarViajesAbiertos() {
-            try{
-            	Map<String, Object> aMap = new HashMap<String, Object>();
-    			Session session = this.getSession();
-    			Muber muber = (Muber) session.get(Muber.class, new Long(1));
-    			//Collection<Conductor> c = muber.getConductores();
-    			for(Conductor c: muber.getConductores()){	
-    				for (Viaje v: c.getViajes()){
-    					 if(v.getFinalizado()==false){	
-    						 aMap.put("viaje "+ v.getId_viaje(), this.viajeInfo(v) );}
-    			    }	
-    	       }	
-    			return new Gson().toJson(aMap);
-            } catch(NullPointerException e)
+			try{ 
+			    List<ViajeDTO> viajes = ServiceLocator.getViajesService().getViajesAbiertos();
+				Map<Long, Object> aMap = new HashMap<Long, Object>();
+		        for (ViajeDTO elem : viajes) {
+				    	aMap.put(elem.getId_viaje() , this.viajeInfo(elem));
+				}
+				
+				return new Gson().toJson(aMap);
+			 } catch(NullPointerException e)
             {
                 return "no hay viajes abiertos";
-            }
-			
+            } 
 		}
 				
 		//crear un viaje
 				
-				
+		/*		
 			
 			
 		@RequestMapping(value = "/viajes/nuevo", method = RequestMethod.POST, produces = "application/json", headers = "Accept=application/json")
@@ -261,25 +252,28 @@ public class MuberRestController {
 			}
 		}
 		
-				
-		*/
+		*/		
+		
 		//metodos
-		protected Map<String, Object> mostrarInformacion(Conductor c){
+		protected Map<String, Object> mostrarInformacion(ConductorDTO c){
 			Map<String, Object> info = new HashMap<String, Object>();
 			Map<String, Object> listaDeViajes = new HashMap<String, Object>();
 			info.put("Nombre", c.getNombre());
+			info.put("Clave", c.getContrasenia());
 			info.put("Fecha de licencia", c.getF_licencia());
-			//por alguna razon bardea el promedio
-		    info.put("Calificacion promedio", c.calificacionPromedio());
-			Collection <Viaje> viajes= c.getViajes();
+			info.put("Fecha de ingreso", c.getF_ingreso());
+			/*
+		    info.put("Calificacion promedio", c.getPromedio());
+		    Collection <Viaje> viajes= c.getViajes();
 			for (Viaje elem : viajes) {
 				listaDeViajes.put("viaje "+ elem.getId_viaje(), this.viajeInfo(elem));
 			}
 			info.put("Lista de viajes", listaDeViajes);
-			
+			*/
 			return info;	
 			}
-		protected Map<String, Object> viajeInfo(Viaje v){
+			
+		protected Map<String, Object> viajeInfo(ViajeDTO v){
 			Map<String, Object> mapViaje = new HashMap<String, Object>();
 			mapViaje.put("max pasajero", v.getMax_pasajeros());
 			mapViaje.put("origen", v.getOrigen());
@@ -287,5 +281,6 @@ public class MuberRestController {
 			mapViaje.put("costo", v.getCosto());
 			return mapViaje;	
 			}
+		
 }
 

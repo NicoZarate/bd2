@@ -19,10 +19,6 @@ public class HibernatePasajerosRepository extends BaseHibernateRepository implem
 		List<Pasajero> pasajeros= session.createQuery("from Pasajero").list();
 		t.rollback();
 		endSession(session);
-		/*List<Pasajero> pasajeros= new ArrayList<Pasajero>();
-		Muber muber= new Muber();
-		Pasajero p= new Pasajero("robert", "1212", 123, muber);
-		pasajeros.add(p);*/
 		return pasajeros;
 	}
 	

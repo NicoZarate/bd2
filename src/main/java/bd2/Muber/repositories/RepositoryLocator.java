@@ -1,51 +1,54 @@
 package bd2.Muber.repositories;
 
-import bd2.Muber.repositories.impl.*;
+import bd2.Muber.interfaces.repositories.*;
+
 
 public class RepositoryLocator{
 	// devuelven instacias de los repositorios
-	static HibernateCalificacionesRepository calificacionesRepository;
-	static HibernatePasajerosRepository pasajerosRepository;
-	static HibernateConductoresRepository conductoresRepository;
-	static HibernateViajesRepository viajesRepository;
+	static CalificacionesRepositoryBI calificacionesRepository;
+	static PasajerosRepositoryBI pasajerosRepository;
+	static ConductoresRepositoryBI conductoresRepository;
+	static ViajesRepositoryBI viajesRepository;
 	
-	public static RepositoryLocator getInstance(){
+	
+    public static RepositoryLocator getInstance(){
 		
 		return new RepositoryLocator();
 	}
-	public static HibernateCalificacionesRepository getCalificacionesRepository(){
-		
+	
+	public static CalificacionesRepositoryBI getCalificacionesRepository() {
 		return calificacionesRepository;
-		
-	}
-	
-    public static HibernateConductoresRepository getConductoresRepository(){
-		
-		return conductoresRepository;
-		
 	}
 
-    public static HibernatePasajerosRepository getPasajerosRepository(){
-	
-	    return pasajerosRepository;
-	
-    }
-
-    public static HibernateViajesRepository getViajesRepository(){
-	
-	   return viajesRepository;
-	
-    }
-    public static void setCalificacionesRepository(HibernateCalificacionesRepository calificacionesRepository) {
+	public static void setCalificacionesRepository(CalificacionesRepositoryBI calificacionesRepository) {
 		RepositoryLocator.calificacionesRepository = calificacionesRepository;
 	}
-	public static void setPasajerosRepository(HibernatePasajerosRepository pasajerosRepository) {
+
+	public static PasajerosRepositoryBI getPasajerosRepository() {
+		return pasajerosRepository;
+	}
+
+	public static void setPasajerosRepository(PasajerosRepositoryBI pasajerosRepository) {
 		RepositoryLocator.pasajerosRepository = pasajerosRepository;
 	}
-	public static void setConductoresRepository(HibernateConductoresRepository conductoresRepository) {
+
+	public static ConductoresRepositoryBI getConductoresRepository() {
+		return conductoresRepository;
+	}
+
+	public static void setConductoresRepository(ConductoresRepositoryBI conductoresRepository) {
 		RepositoryLocator.conductoresRepository = conductoresRepository;
 	}
-	public static void setViajesRepository(HibernateViajesRepository viajesRepository) {
+
+	public static ViajesRepositoryBI getViajesRepository() {
+		return viajesRepository;
+	}
+
+	public static void setViajesRepository(ViajesRepositoryBI viajesRepository) {
 		RepositoryLocator.viajesRepository = viajesRepository;
 	}
+
+	
+	
+	
 }

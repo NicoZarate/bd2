@@ -3,21 +3,17 @@ package bd2.Muber.services.impl;
 import java.util.List;
 
 import bd2.Muber.dto.PasajeroDTO;
-import bd2.Muber.repositories.impl.HibernatePasajerosRepository;
+import bd2.Muber.interfaces.repositories.PasajerosRepositoryBI;
+import bd2.Muber.interfaces.services.PasajerosServiceBI;
 
-public class PasajerosServiceImpl extends BaseServiceImpl{
-	public HibernatePasajerosRepository pasajerosRepository;
+
+public class PasajerosServiceImpl extends BaseServiceImpl implements  PasajerosServiceBI{
 	
+
 	public List<PasajeroDTO> getPasajeros()
 	{
 		return this.dtoFactory.crearPasajerosDTO(pasajerosRepository.getPasajeros());
 	}
 
-	public HibernatePasajerosRepository getPasajerosRepository() {
-		return pasajerosRepository;
-	}
-
-	public void setPasajerosRepository(HibernatePasajerosRepository pasajerosRepository) {
-		this.pasajerosRepository = pasajerosRepository;
-	}
+	
 }

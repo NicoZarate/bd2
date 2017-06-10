@@ -16,10 +16,8 @@ public class BaseHibernateRepository{
 		this.sessionFactory = sessionFactory;
 	}
 
-	protected Session getSession() {
-		Configuration cfg = new Configuration();
-		cfg.configure("hibernate.cfg.xml");
-		SessionFactory factory = cfg.buildSessionFactory();
+	public Session getSession() {
+		SessionFactory factory = sessionFactory;
 		Session session = factory.openSession();
 		return session;
 	        

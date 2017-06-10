@@ -1,19 +1,40 @@
 package bd2.Muber.services.impl;
 
 import bd2.Muber.dto.*;
-import bd2.Muber.repositories.impl.HibernatePasajerosRepository;
+import bd2.Muber.interfaces.repositories.*;
+
 
 public  class BaseServiceImpl{
 	
 	protected DTOFactory dtoFactory;
-	protected HibernatePasajerosRepository pasajerosRepository;
+	protected PasajerosRepositoryBI pasajerosRepository;
+	protected ConductoresRepositoryBI conductoresRepository;
+	protected ViajesRepositoryBI viajesRepository;
+
+	
+	public ConductoresRepositoryBI getConductoresRepository() {
+		return conductoresRepository;
+	}
+
+	public void setConductoresRepository(ConductoresRepositoryBI conductoresRepository) {
+		this.conductoresRepository = conductoresRepository;
+	}
+
+	public ViajesRepositoryBI getViajesRepository() {
+		return viajesRepository;
+	}
+
+	public void setViajesRepository(ViajesRepositoryBI viajesRepository) {
+		this.viajesRepository = viajesRepository;
+	}
+
 	
 	
-	public HibernatePasajerosRepository getPasajerosRepository() {
+	public PasajerosRepositoryBI getPasajerosRepository() {
 		return pasajerosRepository;
 	}
 
-	public void setPasajerosRepository(HibernatePasajerosRepository pasajerosRepository) {
+	public void setPasajerosRepository(PasajerosRepositoryBI pasajerosRepository) {
 		this.pasajerosRepository = pasajerosRepository;
 	}
 

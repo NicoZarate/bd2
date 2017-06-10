@@ -7,6 +7,6 @@ import bd2.Muber.model.Conductor;
 public interface ConductoresRepositoryBI extends BaseRepositoryBI{
 	
 	public List<Conductor> getConductores();
-	public Conductor buscarConducor(Long id);
+	public Conductor buscarConductor(Long id);
 	
 }
