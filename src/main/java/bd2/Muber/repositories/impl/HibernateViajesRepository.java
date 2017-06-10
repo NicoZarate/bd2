@@ -43,23 +43,41 @@ public class HibernateViajesRepository extends BaseHibernateRepository implement
 	}
 	
 	// crea un viaje
-	public boolean cargarViaje(String origen,String destino , float costoTotal ,int cantidadPasajeros,long conductorId){
+	public Long cargarViaje(String origen,String destino , float costoTotal ,int cantidadPasajeros,long conductorId){
 		try{
 		    Session session = this.getSession();
 			Transaction t = session.beginTransaction();
-			Conductor conductor = new HibernateConductoresRepository().buscarConductor(conductorId);
-			
-			//conductor.registrarViaje(origen, destino, cantidadPasajeros, costoTotal);
+			Query query =session.createQuery("from Conductor WHERE id_usuario = :id");
+			query.setParameter("id", conductorId);
+			Conductor conductor = (Conductor) query.uniqueResult();
+			Viaje v =conductor.registrarViaje(origen, destino, cantidadPasajeros, costoTotal);
 			t.commit();
 			endSession(session);
-			return true;
-		}catch(Exception e){
+			return v.getId_viaje();
+	    	}catch(Exception e){
 			
-			return false;
+			   return null;
 			
 		}
+		
+		
 	}
-	
+	 public String finalizarViaje(Long idViaje)
+	 {
+			Session session = this.getSession();
+			Transaction t = session.beginTransaction();
+			Query query =session.createQuery("from Viaje WHERE id_viaje = :id");
+			query.setParameter("id", idViaje);
+			Viaje viaje = (Viaje) query.uniqueResult();
+			if(viaje == null){
+				return "no se encotro viaje con ese id";
+			}
+			
+			String s = viaje.finalizar();
+			t.commit();
+			endSession(session);
+			return s;
+	}
 	
 	
 	

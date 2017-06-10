@@ -1,20 +1,16 @@
 package bd2.Muber.dto;
 
 import java.util.Date;
+import java.util.Set;
+
 import bd2.Muber.model.Conductor;
+import bd2.Muber.model.Viaje;
 public class ConductorDTO extends UsuarioDTO {
 	
 	private Date f_licencia;
 	private float promedio;
-
-    public float getPromedio() {
-		return promedio;
-	}
-
-	public void setPromedio(float promedio) {
-		this.promedio = promedio;
-	}
-
+    private Set<ViajeDTO> viajes;
+  
 	public ConductorDTO(){
 
     }
@@ -32,7 +28,7 @@ public class ConductorDTO extends UsuarioDTO {
 		this.setContrasenia(c.getContrasenia());
 		this.setF_ingreso(c.getF_ingreso());
 		this.setF_licencia(c.getF_licencia());
-    	
+    
     }
   
 
@@ -49,6 +45,21 @@ public class ConductorDTO extends UsuarioDTO {
 	}
 
 	
+	  public Set<ViajeDTO> getViajes() {
+			return viajes;
+		}
+
+		public void setViajes(Set<ViajeDTO> viajes) {
+			this.viajes = viajes;
+		}
+
+		public float getPromedio() {
+			return promedio;
+		}
+
+		public void setPromedio(float promedio) {
+			this.promedio = promedio;
+		}
 
 	
 

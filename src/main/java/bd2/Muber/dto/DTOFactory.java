@@ -1,7 +1,9 @@
 package bd2.Muber.dto;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import bd2.Muber.model.*;
 
@@ -41,7 +43,16 @@ public class DTOFactory{
 	
 	public ConductorDTO crearConductorDTO(Conductor c){
 		
-		return new ConductorDTO(c);
+		Set<Viaje> viajes = c.getViajes();
+        Set<ViajeDTO> viajesdto = new HashSet<ViajeDTO>();
+		
+		for(Viaje v: viajes){
+			viajesdto.add(new ViajeDTO(v));
+		}
+		ConductorDTO conductordto = new ConductorDTO(c);
+		conductordto.setViajes(viajesdto);
+		conductordto.setPromedio(c.calificacionPromedio());
+		return conductordto;
 	}
 	
     public PasajeroDTO crearPasajeroDTO(Pasajero p){

@@ -99,9 +99,8 @@ public class MuberRestController {
 				
 		//crear un viaje
 				
-		/*		
-			
-			
+//curl -X POST -d "origen=MardelPlata&destino=Cordoba&costoTotal=2500&cantidadPasajeros=3&conductorId=1" http://localhost:8080/MuberRESTful/rest/services/viajes/nuevo
+		
 		@RequestMapping(value = "/viajes/nuevo", method = RequestMethod.POST, produces = "application/json", headers = "Accept=application/json")
 		public Long crearViaje(
 				@RequestParam("origen") String  origen,
@@ -109,43 +108,54 @@ public class MuberRestController {
 				@RequestParam("conductorId") Long  conductorId,
 				@RequestParam("costoTotal") float  costoTotal,
 				@RequestParam("cantidadPasajeros") int  cantidadPasajeros){
-				Session session = HibernateUtil.getSessionFactory().openSession();
-				session.beginTransaction();
-				Conductor conductor = (Conductor) session.get(Conductor.class, conductorId);
-				Viaje v = conductor.registrarViaje(origen, destino, cantidadPasajeros, costoTotal);
-				HibernateUtil.cerrar(session);
-				return v.getId_viaje();
+			    ConductorDTO conductor = ServiceLocator.getConductoresService().buscarConductor(conductorId);
+			    if(conductor == null){
+			    	return new Long(0);
+			    }
+				Long id = ServiceLocator.getViajesService().cargarViaje(origen, destino, cantidadPasajeros, costoTotal, conductorId);
+				
+				return id ;
 				
 			
 	    }
+		//curl -X PUT -d "idViaje=4" http://localhost:8080/MuberRESTful/rest/services/viajes/finalizar -G
 		
+		
+		@RequestMapping(value = "/viajes/finalizar", method = RequestMethod.PUT, produces = "application/json", headers = "Accept=application/json")
+		public String finalizarViaje(@RequestParam("idViaje") Long idViaje){
+					    
+			      return ServiceLocator.getViajesService().finalizarViaje(idViaje);
+					
+			    }
+		
+		//cargar credito a un pasajero
+				
+		//curl -X PUT -d "monto=3000&idPasajero=2" http://localhost:8080/MuberRESTful/rest/services/pasajeros/cargarCredito -G
+				
+				
+		@RequestMapping(value = "/pasajeros/cargarCredito", method = RequestMethod.PUT, produces = "application/json", headers = "Accept=application/json")
+		public String agregarCredito(
+				@RequestParam("monto") Long monto,
+				@RequestParam("idPasajero") Long idPasajero){
+						
+				  return ServiceLocator.getPasajerosService().agregarCredito(idPasajero,monto);
+					
+				}
 		//agregar pasajero a un viaje	
 		
-		//curl -X PUT -d "idViaje=3&idPasajero=2" http://localhost:8080/MuberRESTful/rest/services/viajes/agregarPasajero -G
-		
-		// cambie a post 
-		@RequestMapping(value = "/viajes/agregarPasajero", method = RequestMethod.POST, produces = "application/json", headers = "Accept=application/json")
-		public String agregarPasajero(
-				@RequestParam("idViaje") Long id_viaje,
-				@RequestParam("idPasajero") Long id_pasajero) {
+		//curl -X PUT -d "idViaje=4&idPasajero=2" http://localhost:8080/MuberRESTful/rest/services/viajes/agregarPasajero -G
 				
-			    Session session = this.getSession();
-			    Transaction t = session.beginTransaction();
-				
-				Muber muber = (Muber) session.get(Muber.class, new Long(1));
-				Viaje v = (Viaje) session.get(Viaje.class, id_viaje);
-				Pasajero p = (Pasajero) session.get(Pasajero.class, id_pasajero);
-				p.agregarse(v);
-				session.save(muber);
-				t.commit();
-				session.close();
-				
-				return "Se HA agregado el pasajero/a "+ p.getNombre() +" correctamente";
-			
-			
-							
+		@RequestMapping(value = "/viajes/agregarPasajero", method = RequestMethod.PUT, produces = "application/json", headers = "Accept=application/json")
+		public String agregarPasajeroAViaje(
+						@RequestParam("idViaje") Long idViaje,
+						@RequestParam("idPasajero") Long idPasajero) {
+						
+					   	return ServiceLocator.getPasajerosService().agregarPasajeroAViaje(idViaje,idPasajero);
+										
 
-	    }
+			    }
+		/*	
+		
 		
 		// crear una calificacion de parte de un pasajero 
 		
@@ -173,63 +183,11 @@ public class MuberRestController {
 				session.close();
 				
 				return "Se ha agregado la calificacion del pasajero/a " + p.getNombre();
-			
-			
 							
 
 	    }
 		
-		//cargar credito a un pasajero
-		
-		//curl -X PUT -d "monto=3000&idPasajero=2" http://localhost:8080/MuberRESTful/rest/services/pasajeros/cargarCredito -G
-		
-		
-		@RequestMapping(value = "/pasajeros/cargarCredito", method = RequestMethod.POST, produces = "application/json", headers = "Accept=application/json")
-		public String agregarCredito(
-				@RequestParam("monto") Long monto,
-				@RequestParam("idPasajero") Long id_pasajero){
-				
-			    Session session = this.getSession();
-			    Transaction t = session.beginTransaction();
-				
-				Muber muber = (Muber) session.get(Muber.class, new Long(1));
-				Pasajero p = (Pasajero) session.get(Pasajero.class, id_pasajero);
-			 	p.cargarCredito(monto);
-				
-				session.save(muber);
-				t.commit();
-				session.close();
-				
-				return "Se ha cargado credito correctamente a " + p.getNombre() ;
-			
-			
-							
-
-	    }
-				
-				//cargar credito a un pasajero
-				
-				//curl -X PUT -d "idViaje=4" http://localhost:8080/MuberRESTful/rest/services/viajes/finalizar -G
-				
-				
-		@RequestMapping(value = "/viajes/finalizar", method = RequestMethod.POST, produces = "application/json", headers = "Accept=application/json")
-		public String finalizarViaje(
-				@RequestParam("idViaje") Long id_viaje){
-				
-			    Session session = this.getSession();
-			    Transaction t = session.beginTransaction();
-				Muber muber = (Muber) session.get(Muber.class, new Long(1));
-				Viaje v = (Viaje) session.get(Viaje.class, id_viaje);
-				v.finalizar();
-				
-				session.save(muber);
-				t.commit();
-				session.close();
-				
-				return "Se ha finalizado el viaje";
-			
-	    }
-						
+								
 		@RequestMapping(value = "/conductores/top10", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 		public String conductoresTop10(){
 			Map<String, Object> aMap = new HashMap<String, Object>();
@@ -262,14 +220,14 @@ public class MuberRestController {
 			info.put("Clave", c.getContrasenia());
 			info.put("Fecha de licencia", c.getF_licencia());
 			info.put("Fecha de ingreso", c.getF_ingreso());
-			/*
+			
 		    info.put("Calificacion promedio", c.getPromedio());
-		    Collection <Viaje> viajes= c.getViajes();
-			for (Viaje elem : viajes) {
+		    Collection <ViajeDTO> viajes= c.getViajes();
+			for (ViajeDTO elem : viajes) {
 				listaDeViajes.put("viaje "+ elem.getId_viaje(), this.viajeInfo(elem));
 			}
 			info.put("Lista de viajes", listaDeViajes);
-			*/
+			
 			return info;	
 			}
 			

@@ -16,6 +16,6 @@ public class ConductoresServiceImpl extends BaseServiceImpl implements Conductor
 	}
 	
 	public ConductorDTO buscarConductor(Long id){
-		return this.dtoFactory.crearConductorDTO(conductoresRepository.buscarConductor(id));
+		return conductoresRepository.buscarConductorDTO(id);
 	}
 }

@@ -8,5 +8,7 @@ public interface PasajerosRepositoryBI extends BaseRepositoryBI{
 	
 	public List<Pasajero> getPasajeros();
 	public Pasajero buscarPasajero(Long id);
+	public String agregarCredito(Long idPasajero, Long monto);
+	public String agregarPasajeroAViaje(Long idViaje, Long idPasajero);
 	
 }

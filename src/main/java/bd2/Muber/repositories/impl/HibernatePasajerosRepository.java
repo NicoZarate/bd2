@@ -34,6 +34,40 @@ public class HibernatePasajerosRepository extends BaseHibernateRepository implem
 		return pasajero;
 	}
 
+	@Override
+	public String agregarCredito(Long idPasajero, Long monto) {
+		Session session = this.getSession();
+		Transaction t = session.beginTransaction();
+		Query query =session.createQuery("from Pasajero WHERE id_usuario = :id");
+		query.setParameter("id", idPasajero);
+		Pasajero pasajero = (Pasajero) query.uniqueResult();
+		if(pasajero == null){
+			return "no se encotro al pasajero con ese id";
+		}
+		pasajero.cargarCredito(monto);
+		t.commit();
+		endSession(session);
+		return "Se cargo saldo con exito a "+ pasajero.getNombre();
+	}
+
+	@Override
+	public String agregarPasajeroAViaje(Long idViaje, Long idPasajero) {
+		Session session = this.getSession();
+		Transaction t = session.beginTransaction();
+		Query query =session.createQuery("from Viaje WHERE id_viaje = :id");
+		query.setParameter("id", idViaje);
+		Viaje viaje = (Viaje) query.uniqueResult();
+		if(viaje==null){return "viaje con existe con ese id";}
+	    query =session.createQuery("from Pasajero WHERE id_usuario = :id");
+		query.setParameter("id", idPasajero);
+		Pasajero pasajero = (Pasajero) query.uniqueResult();
+		if(pasajero == null ){return "pasajero no existe con ese id";}
+		String s = pasajero.agregarse(viaje);
+		t.commit();
+		endSession(session);
+		return s;
+	}
+
 	
 	
 }

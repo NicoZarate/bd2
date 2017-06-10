@@ -9,6 +9,7 @@ public interface ViajesRepositoryBI extends BaseRepositoryBI{
 	public List<Viaje> getViajes();
 	public Viaje buscarViaje(Long id);
 	public List<Viaje> getViajesAbiertos();
-	public boolean cargarViaje(String origen,String destino , float costoTotal ,int cantidadPasajeros,long conductorId);
+	public Long cargarViaje(String origen,String destino , float costoTotal ,int cantidadPasajeros,long conductorId);
+	public String finalizarViaje(Long idViaje);
 	
 }

@@ -23,4 +23,17 @@ public class ViajesServiceImpl extends BaseServiceImpl implements ViajesServiceB
     	//falta crear el dtoFactory.crearViajeDTO para que convierta
     	return null;
     }
+
+	@Override
+	public Long cargarViaje(String origen, String destino, int cantidadPasajeros, float costoTotal, long conductorId) {
+		
+		return viajesRepository.cargarViaje(origen, destino, costoTotal, cantidadPasajeros, conductorId);
+		
+	}
+
+	@Override
+	public String finalizarViaje(Long idViaje) {
+		
+		return viajesRepository.finalizarViaje(idViaje);
+	}
 }

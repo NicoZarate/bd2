@@ -48,17 +48,18 @@ public class Viaje {
 	
 	//finaliza un viaje y se cobra a los pasajeros, sólo se puede finalizar una vez
 	
-	public void finalizar() {
+	public String finalizar() {
 		if (!this.getFinalizado()){
 			float acobrar = this.costo / this.pasajeros.size();
 			for(Pasajero p : this.pasajeros) {
 	            p.cobrar(acobrar);
 	        }
 			this.setFinalizado(true);
+			return "Finalizado correctamente";
 		}
-		else{
-			System.out.println("viaje ya finalizado");
-		}
+		
+			return "viaje ya habia finalizado";
+		
 	}
 	
 	public void agregarCalificacion(Calificacion calif) {
