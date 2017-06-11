@@ -198,8 +198,14 @@ public class MuberRestController {
 			
 			*/
 		}
-		//cargas
+		@RequestMapping(value = "/carga", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
+		public String carga1(){
+			
+		     ServiceLocator.getPasajerosService().cargarBase();
+		     return "carga con exito";
+		}
 	
+		
 		
 		//metodos
 		protected Map<String, Object> mostrarInformacion(ConductorDTO c){

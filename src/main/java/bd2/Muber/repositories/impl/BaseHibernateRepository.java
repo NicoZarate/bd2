@@ -33,7 +33,7 @@ public class BaseHibernateRepository{
        	session.disconnect();
     	session.close();
    }
-	public void cargarBaseEtapa1(){
+	public void cargarBase(){
 		Session session = this.getSession();
 		Transaction t = session.beginTransaction();
 		Muber muber= new Muber();
@@ -47,7 +47,6 @@ public class BaseHibernateRepository{
 		Pasajero alicia = new Pasajero("Alicias", "a", 1500, muber );
 		Pasajero margarita = new Pasajero("Margarita", "m", 1500, muber);
 		Pasajero hugo = new Pasajero("Hugo", "h", 2300, muber);
-		
 		german.agregarse(viaje);
 		alicia.agregarse(viaje);
 		margarita.agregarse(viaje);
@@ -62,17 +61,8 @@ public class BaseHibernateRepository{
 		t.commit();
 		endSession(session);
 	}
-	public void cargarBaseEtapa2(){
-		Session session = this.getSession();
-		Transaction t = session.beginTransaction();
-		Query query =session.createQuery("from Muber WHERE id_muber = :id");
-		query.setParameter("id", new Long(1));
-		Muber muber = (Muber) query.uniqueResult();
-		Pasajero hugo = new Pasajero("Hugo", "h", 2300, muber);
-		session.save(muber);
-		t.commit();
-		endSession(session);
-	}
+	
+	
 	
 	
 }

@@ -45,11 +45,9 @@ public  class BaseServiceImpl{
 	public void setDtoFactory(DTOFactory dtoFactory) {
 		this.dtoFactory = dtoFactory;
 	}
-	public void cargarBaseEtapa1(){
-		this.getPasajerosRepository().cargarBaseEtapa1();
+	public void cargarBase(){
+		this.getPasajerosRepository().cargarBase();
 		
 	}
-	public void cargarBaseEtapa2(){
-		this.getPasajerosRepository().cargarBaseEtapa2();
-	}
+	
 }

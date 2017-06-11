@@ -29,9 +29,9 @@ public class App
     	//post urlencoded
     	//put raw y en tipo json
     	
-         carga1();  //carga de la etapa 1
-    	//carga2() //carga de la etapa 2  agrega a hugo
-        // escenariotp2();
+         //carga();  //carga de la etapa 1 y 2 
+    	
+         escenariotp2();
     			
     }
     
@@ -82,7 +82,7 @@ public class App
     public static void calificarViaje(Long id_pasajero,Long id_viaje,String comentario, int puntaje ) {
     	String url="http://localhost:8080/MuberRESTful/rest/services/viajes/calificar";
 		RestTemplate restTemplate = new RestTemplate();
-		String input = String.format("viajeId=%1$dpasajeroId=%2$d&comentario=%3$s&puntaje=%4$d", id_viaje,id_pasajero, comentario, puntaje);
+		String input = String.format("viajeId=%1$d&pasajeroId=%2$d&comentario=%3$s&puntaje=%4$d", id_viaje,id_pasajero, comentario, puntaje);
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("content-type", "application/x-www-form-urlencoded");
 		HttpEntity<String> entity = new HttpEntity<String>(input, headers);
@@ -170,27 +170,18 @@ public class App
 	    return new JSONObject(response.getBody());
 	   
     }
-    
-    public static JSONObject carga1(){
+   
+    public static void carga(){
     	 
-		String url="http://localhost:8080/MuberRESTful/rest/services/carga1";
+		String url="http://localhost:8080/MuberRESTful/rest/services/carga";
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		HttpEntity<String> entity = new HttpEntity<String>("", headers);
 		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-	    return new JSONObject(response.getBody());
+		System.out.println(response.getBody());
 	   
     }
-    public static JSONObject carga2(){
-   	 
-		String url="http://localhost:8080/MuberRESTful/rest/services/carga2";
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders headers = new HttpHeaders();
-		HttpEntity<String> entity = new HttpEntity<String>("", headers);
-		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-	    return new JSONObject(response.getBody());
-	   
-    }
+   
     
     
   //buca por nombre un pasajero
