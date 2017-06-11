@@ -1,6 +1,6 @@
 # IMPORTANTE:
 
-## agregar al servidor
+## Agregar al servidor
 ```sh
 	-doble click en el servidor
 	-open launch configuration
@@ -8,9 +8,9 @@
 	-en VM Arguments agregar un -Dspring.profiles.active=dev
 ```
 
-## La carga de la base de datos y el escenario estan hubicados en:
+## La carga de la base de datos y el escenario están ubicados en:
 ```sh
     -bd2\src\main\java\bd2\Muber\App.java
 ```
 
-## TAMBIEN PODES Y DEBES AGREGARLE MAS TIEMPO AL SERVER EN LA VENTANA TIMEOUTS
+## También podes y debes agregar más tiempo al server en la ventana TIMEOUTS.
