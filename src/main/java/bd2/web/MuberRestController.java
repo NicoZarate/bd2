@@ -169,10 +169,14 @@ public class MuberRestController {
 			return ServiceLocator.getPasajerosService().calificarViaje(id_viaje, id_pasajero, puntaje, comentario);						
 
 	    }
-		/*
+		
 								
 		@RequestMapping(value = "/conductores/top10", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 		public String conductoresTop10(){
+			
+			return new Gson().toJson(ServiceLocator.getConductoresService().top10());
+			/*
+			
 			Map<String, Object> aMap = new HashMap<String, Object>();
 			Session session = this.getSession();
 			Muber muber = (Muber) session.get(Muber.class, new Long(1));
@@ -191,9 +195,11 @@ public class MuberRestController {
 			else{
 				return new Gson().toJson(aMap);
 			}
+			
+			*/
 		}
 		
-		*/		
+				
 		
 		//metodos
 		protected Map<String, Object> mostrarInformacion(ConductorDTO c){

@@ -1,6 +1,7 @@
 package bd2.Muber.services.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import bd2.Muber.dto.ConductorDTO;
 import bd2.Muber.interfaces.services.ConductoresServiceBI;
@@ -17,5 +18,9 @@ public class ConductoresServiceImpl extends BaseServiceImpl implements Conductor
 	
 	public ConductorDTO buscarConductor(Long id){
 		return conductoresRepository.buscarConductorDTO(id);
+	}
+
+	public Map<Object, Object> top10() {
+		return conductoresRepository.getTop10();
 	}
 }
