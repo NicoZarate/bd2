@@ -26,6 +26,10 @@ public class PasajerosServiceImpl extends BaseServiceImpl implements  PasajerosS
 		// TODO Auto-generated method stub
 		return pasajerosRepository.agregarPasajeroAViaje(idViaje,idPasajero);
 	}
+	
+	public String calificarViaje(Long id_viaje, Long id_pasajero, int puntaje, String comentario){
+		return pasajerosRepository.calificarViaje(id_viaje, id_pasajero, puntaje, comentario);
+	}
 
 	
 }

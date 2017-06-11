@@ -67,6 +67,36 @@ public class HibernatePasajerosRepository extends BaseHibernateRepository implem
 		endSession(session);
 		return s;
 	}
+	
+	 public String calificarViaje(Long id_viaje, Long id_pasajero, int puntaje, String comentario){
+		 String mensaje;
+		 Session session = this.getSession();
+		 Transaction t = session.beginTransaction();
+		 Query conseguirViaje = session.createQuery("from Viaje where id_viaje = :id");
+		 conseguirViaje.setParameter("id", id_viaje);
+		 Viaje viaje = (Viaje) conseguirViaje.uniqueResult();
+		 if (viaje == null){
+			 mensaje="El viaje no existe";
+		 }
+		 Query conseguirPasajero = session.createQuery("from Pasajero where id_usuario = :id");
+		 conseguirPasajero.setParameter("id", id_pasajero);
+		 Pasajero pasajero = (Pasajero) conseguirPasajero.uniqueResult();
+		 if (pasajero == null){
+			 mensaje="El id del pasajero no existe";
+		 }
+		 else{
+			 Calificacion res = pasajero.calificar(puntaje, comentario, viaje);
+			 if (res != null){
+				 mensaje="Se calificó correctamente";
+			 }
+			 else{
+				 mensaje="No se pudo calificar";
+			 }
+		 }
+		 t.commit();
+		 endSession(session);
+		 return mensaje;
+	 }
 
 	
 	

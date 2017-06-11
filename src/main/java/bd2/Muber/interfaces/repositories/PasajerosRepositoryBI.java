@@ -10,5 +10,6 @@ public interface PasajerosRepositoryBI extends BaseRepositoryBI{
 	public Pasajero buscarPasajero(Long id);
 	public String agregarCredito(Long idPasajero, Long monto);
 	public String agregarPasajeroAViaje(Long idViaje, Long idPasajero);
+	public String calificarViaje(Long id_viaje, Long id_pasajero, int puntaje, String comentario);
 	
 }
