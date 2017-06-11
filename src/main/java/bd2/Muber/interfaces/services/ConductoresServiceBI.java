@@ -10,5 +10,5 @@ public interface ConductoresServiceBI extends BaseServiceBI{
 
 	public List<ConductorDTO> getConductores();
 	public ConductorDTO buscarConductor(Long id);
-	public Map<Object, Object> top10();
+	public Map<String, Double> top10();
 }

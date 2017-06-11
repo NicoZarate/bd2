@@ -11,5 +11,5 @@ public interface ConductoresRepositoryBI extends BaseRepositoryBI{
 	public List<Conductor> getConductores();
 	public Conductor buscarConductor(Long id);
 	public ConductorDTO buscarConductorDTO(Long id);
-	public Map<Object, Object> getTop10();
+	public Map<String, Double> getTop10();
 }

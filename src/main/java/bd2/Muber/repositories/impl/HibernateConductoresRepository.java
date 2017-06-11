@@ -1,7 +1,10 @@
 package bd2.Muber.repositories.impl;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -50,42 +53,32 @@ public class HibernateConductoresRepository extends BaseHibernateRepository impl
 		return null;
 	}
 
-	public Map<Object, Object> getTop10() {
+	public Map<String, Double> getTop10() {
 		Session session = this.getSession();
 		Transaction t = session.beginTransaction();
-/*		SQLQuery query = session.createSQLQuery(
-				SELECT AVG(puntaje) as promedio, c.nombre as nombre 
-				FROM Conductor c 
-				inner join Viaje v on v.id_conductor = c.id_usuario 
-				INNER join Calificacion ca on ca.id_viaje = v.id_viaje 
-				group by c.nombre order by promedio DESC);
-*/		
-		Query query= session.createQuery("select new map(avg(puntaje) as promedio, c.nombre as nombre)"
+				
+		List<Object[]> lista = session.createQuery("select avg(ca.puntaje) as promedio, c.nombre as nombre"
 				+ "										from Conductor c, Viaje v, Calificacion ca "
-				+ "										where v.id_conductor = c.id_usuario and"
-				+ "										ca.id_viaje = v.id_viaje"
+				+ "										where v.conducido_por = c.id_usuario and"
+				+ "										ca.soy_de = v.id_viaje"
 				+ "										group by nombre"
-				+ "										order by promedio desc");
+				+ "										order by promedio desc").setMaxResults(10).list();
 		
-		query.setMaxResults(10);
-		List<Map<Object, Object>> list = query.list();
-		
-		
+
+		Map<String, Double> top = new HashMap<String, Double>();
+		int i=0;
+		 for(Object[] l: lista){
+			 i++;
+	         Double p = (Double)l[0];
+	         String n = (String)l[1];
+	         top.put("Puesto"+ " " + i +" " + n, p);
+
+	     }
+		 
 		t.commit();
-		
 		endSession(session);
-		
-		//ver como devolver el map
-		
-		
-		Map<Object, Object> map;
-		
-		for (Map<Object, Object> obj : list) {	  
-			map.put(obj.getKey(), obj.getValue());
-			}
-		return map;
-		//Query query = session.createQuery("from Cat cat,Owner owner where cat.OwnerId = owner.Id and owner.Name='Duke'");
-	}
+		return top;
+		}
 	
 	
 }

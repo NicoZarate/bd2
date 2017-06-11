@@ -175,29 +175,8 @@ public class MuberRestController {
 		public String conductoresTop10(){
 			
 			return new Gson().toJson(ServiceLocator.getConductoresService().top10());
-			/*
-			
-			Map<String, Object> aMap = new HashMap<String, Object>();
-			Session session = this.getSession();
-			Muber muber = (Muber) session.get(Muber.class, new Long(1));
-			
-			ArrayList<Conductor> top10 = muber.topTen();
-			
-			int i=1;
-			for(Conductor c: top10){
-
-				aMap.put("Puesto"+ i + ":" + c.getNombre(), "Promedio:" + c.calificacionPromedio() );
-				i++;
-			}
-			if (top10.size()==0){
-				return "no hay";
-			}
-			else{
-				return new Gson().toJson(aMap);
-			}
-			
-			*/
 		}
+		
 		@RequestMapping(value = "/carga", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 		public String carga1(){
 			

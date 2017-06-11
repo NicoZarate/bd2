@@ -20,7 +20,7 @@ public class ConductoresServiceImpl extends BaseServiceImpl implements Conductor
 		return conductoresRepository.buscarConductorDTO(id);
 	}
 
-	public Map<Object, Object> top10() {
+	public Map<String, Double> top10() {
 		return conductoresRepository.getTop10();
 	}
 }
